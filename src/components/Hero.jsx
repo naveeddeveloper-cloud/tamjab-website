@@ -9,17 +9,21 @@ export default function Hero() {
       
       {/* --- BACKGROUND LAYERS --- */}
       
-      {/* 1. Base Gradient: Gold glow from the bottom */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#D6CDB2] via-[#F4F1E8] to-[#ffffff]" />
+      {/* 1. Base Gradient: White top fading to Gold/Sand bottom */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#FFFFFF] via-[#F9F8F4] to-[#D5CDB1] z-0" />
       
-      {/* 2. Dot Pattern Overlay */}
-      <div 
-        className="absolute inset-0 opacity-40 mix-blend-overlay"
-        style={{ 
-          backgroundImage: 'radial-gradient(#888 1.5px, transparent 1.5px)', 
-          backgroundSize: '24px 24px' 
-        }} 
-      />
+      {/* 2. Dot Pattern Image Overlay */}
+      {/* This uses your dots.png as a repeating pattern */}
+      <div className="absolute inset-0 z-0 opacity-50 mix-blend-multiply pointer-events-none">
+        <div 
+          className="w-full h-full"
+          style={{ 
+            backgroundImage: "url('/dots.png')", 
+            backgroundRepeat: "repeat", 
+            backgroundSize: "auto" // Adjust this (e.g., '50px') if dots are too big/small
+          }} 
+        />
+      </div>
 
       {/* --- CONTENT CONTAINER --- */}
       <div className="relative z-10 w-full h-full max-w-[1400px] mx-auto px-6 md:px-12 flex flex-col md:block">
@@ -29,11 +33,9 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          // Added 'relative z-20' so text stays on top of image on small screens if they overlap
-          // Added 'pt-32' for mobile to clear the navbar, 'pb-10' for spacing
           className="w-full md:w-3/5 pt-32 md:pt-24 pb-10 md:pb-0 relative z-20"
         >
-          {/* Main Headline - Responsive Text Sizes */}
+          {/* Main Headline */}
           <h1 className="font-logo text-[#0F3D35] text-[3rem] sm:text-[4rem] md:text-[5.5rem] leading-[0.95] md:leading-[0.9] tracking-tight font-medium text-center md:text-left">
             Every <span className="text-[#A39261] italic font-normal">great leader</span> <br />
             reaches a point <br />
@@ -54,7 +56,7 @@ export default function Hero() {
             </p>
           </div>
 
-          {/* Buttons - Stack on mobile, Row on Desktop */}
+          {/* Buttons */}
           <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
             <button className="bg-[#0F3D35] hover:bg-[#092520] text-white px-8 py-4 rounded-[4px] font-sans font-medium text-lg transition-colors duration-300 w-full sm:w-auto">
               Discover Our Expertise
@@ -70,9 +72,7 @@ export default function Hero() {
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          // Mobile: Relative block at bottom, Fixed Height.
-          // Desktop: Absolute positioning bottom-right.
-          className="relative w-full h-[400px] mt-8 md:mt-0 md:absolute md:bottom-0 md:right-0 md:h-[85%] md:w-[45%] z-10"
+          className="relative w-full h-[400px] mt-8 md:mt-0 md:absolute md:bottom-0 md:right-0 md:h-[100%] md:w-[70%] z-10"
         >
           {/* Image Container */}
           <div className="relative w-full h-full">
@@ -80,8 +80,6 @@ export default function Hero() {
               src="/girl.png" 
               alt="Leadership Portrait" 
               fill
-              // Object-contain keeps aspect ratio. 
-              // Object-bottom anchors it to the curved bottom edge.
               className="object-contain object-bottom md:object-right-bottom"
               priority
               sizes="(max-width: 768px) 100vw, 50vw"
